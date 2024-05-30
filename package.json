@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node --files main.ts"
+    "start": "ts-node --files openPosition.ts",
+    "leverage": "ts-node --files leverage.ts"
   },
   "dependencies": {
     "@protocolink/api": "^1.0.24",

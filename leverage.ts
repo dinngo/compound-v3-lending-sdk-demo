@@ -1,7 +1,13 @@
-import * as apisdk from '@protocolink/api';
-import * as common from '@protocolink/common';
-import { destToken, marketId, slippage, srcAmount, srcToken } from './config';
-import * as lending from '@protocolink/lending';
+import * as apisdk from "@protocolink/api"
+import * as common from "@protocolink/common"
+import {
+  destToken,
+  marketId,
+  slippage,
+  srcAmount,
+  srcToken,
+} from "./leverage.config"
+import * as lending from "@protocolink/lending"
 
 // step 1: Register lending protocol and swapper
 lending.Adapter.registerProtocol(lending.protocols.compoundv3.LendingProtocol)
