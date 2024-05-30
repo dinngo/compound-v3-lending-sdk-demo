@@ -1,0 +1,13 @@
+{
+  "name": "compound-v3-lending-sdk-demo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node --files main.ts"
+  },
+  "dependencies": {
+    "@protocolink/api": "^1.0.24",
+    "@protocolink/common": "^0.3.10",
+    "@protocolink/lending": "^1.1.0"
+  }
+}
