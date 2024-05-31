@@ -1,4 +1,4 @@
-import * as apisdk from '@protocolink/api';
+import * as apisdk from "@protocolink/api"
 import {
   collateralAmount,
   collateralToken,
@@ -6,10 +6,10 @@ import {
   marketId,
   zapAmount,
   zapToken,
-} from './openPosition.config';
-import * as common from '@protocolink/common';
-import * as lending from '@protocolink/lending';
-import readline from 'readline';
+} from "./openPosition.config"
+import * as common from "@protocolink/common"
+import * as lending from "@protocolink/lending"
+import readline from "readline"
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -19,26 +19,32 @@ const rl = readline.createInterface({
 const readlineQuestion = (question: string) =>
   new Promise((resolve) => rl.question(question, (answer) => resolve(answer)))
 
-// step 1: Register lending protocol and swapper
+// Step 1: Register the Compound V3 lending protocol and Paraswap V5 swapper
 lending.Adapter.registerProtocol(lending.protocols.compoundv3.LendingProtocol)
 lending.Adapter.registerSwapper(lending.swappers.paraswapv5.LendingSwapper)
+console.log(
+  "Step 1: Registered Compound V3 lending protocol, Paraswap V5 Swap protocol"
+)
 
-// step 2: Initialze adapter with chainId
+// Step 2: Initialize the lending adapter with the base chain ID
 const chainId = common.ChainId.base
 const adapter = new lending.Adapter(chainId)
+console.log("Step 2: Initialized adapter with base chain ID")
 
 const account = "0xa3C1C91403F0026b9dd086882aDbC8Cdbc3b3cfB"
 const protocolId = "compound-v3"
 
 ;(async () => {
-  // step 3: Get account's protfolio, you will need to pass the `protfolio` to each operation
-  await readlineQuestion("Press enter to get portfolio:")
+  // Step 3: Get the account's portfolio on the specified lending protocol and market
+  await readlineQuestion(`Step 3: Press enter to get portfolio(${account}):`)
   const portfolio = await adapter.getPortfolio(account, protocolId, marketId)
-  console.log("---portfolio---", portfolio)
+  console.log(portfolio)
 
-  // step 4: Open By Collateral enables users to achieve the desired collateral exposure in a single step by using a flash loan.
-  await readlineQuestion("Press enter to get logics by call openByCollateral:")
-  const { afterPortfolio, logics } = await adapter.openByCollateral({
+  // Step 4: Build Logics - open a position by providing collateral using a flash loan
+  await readlineQuestion(
+    "Step 4: Press enter to build logics by call openByCollateral:"
+  )
+  const { logics } = await adapter.openByCollateral({
     account,
     portfolio,
     zapToken,
@@ -47,40 +53,28 @@ const protocolId = "compound-v3"
     collateralAmount,
     debtToken,
   })
+  console.log(logics, JSON.stringify(logics, null, 2))
 
-  console.log("---afterPortfolio---", afterPortfolio)
-  console.log("---logics---", JSON.stringify(logics, null, 2))
-
-  const routerData: apisdk.RouterData = {
-    chainId,
-    account,
-    logics,
-  }
-
-  // step 5: Estimate Router Data
-  //   estimate how much funds will be spent (funds) and how many balances will be obtained (balances) from this transaction.
-  //   It will also identify any approvals that the user needs to execute (approvals) before the transaction.
-
+  // Step 5: Estimate the required funds, balances, approvals, permit data, and fees for the transaction
   await readlineQuestion(
-    "Press enter to estimate and get initial funds, approvals"
+    "Step 5: Press enter to estimate and get initial funds, approvals"
   )
+  const routerData: apisdk.RouterData = { chainId, account, logics }
   const estimateResult = await apisdk.estimateRouterData(routerData, {
     permit2Type: "approve",
   })
-  const { funds, balances, approvals, permitData, fees } = estimateResult
+  const { funds, approvals, permitData } = estimateResult
   console.log("---funds---", funds)
-  console.log("---balances---", balances)
   console.log("---approvals---", approvals)
   console.log("---permitData---", permitData)
-  console.log("---fees---", fees)
 
-  // step 5-1: Approvals (optional)
+  // Step 5-1: Execute the required approvals (optional)
   // const signer = provider.getSigner(account);
   // for (const approval of estimateResult.approvals) {
   //   const tx = await signer.sendTransaction(approval);
   // }
 
-  // step: PermitData (optional)
+  // step 5-2: Sign the permit data (optional)
   // const signer = provider.getSigner(account)
   // const permitSig = await signer._signTypedData(
   //   permitData.domain,
@@ -90,16 +84,17 @@ const protocolId = "compound-v3"
   // routerData.permitData = estimateResult.permitData;
   // routerData.permitSig = permitSig;
 
-  // step 6: Build Router Transaction
-  await readlineQuestion("Press enter to build transaction request")
+  // Step 6: Build the transaction request for executing the position open operation
+  await readlineQuestion("Step 6: Press enter to build transaction request")
   const transactionRequest = await apisdk.buildRouterTransactionRequest(
     routerData
   )
-  console.log(JSON.stringify(transactionRequest))
+  console.log(transactionRequest)
 
-
-  await readlineQuestion("And now you can send the transaction by using the above result")
-  // step 7: send transaction
+  // Step 7: send transaction
+  await readlineQuestion(
+    "Step 7: And now you can send the transaction by using the above result"
+  )
   // const signer = provider.getSigner(account)
   // const tx = await signer.sendTransaction(transactionRequest)
 })()
