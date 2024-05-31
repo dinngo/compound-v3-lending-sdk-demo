@@ -1,4 +1,4 @@
-import * as apisdk from "@protocolink/api"
+import * as apisdk from '@protocolink/api';
 import {
   collateralAmount,
   collateralToken,
@@ -6,10 +6,10 @@ import {
   marketId,
   zapAmount,
   zapToken,
-} from "./openPosition.config"
-import * as common from "@protocolink/common"
-import * as lending from "@protocolink/lending"
-import readline from "readline"
+} from './openPosition.config';
+import * as common from '@protocolink/common';
+import * as lending from '@protocolink/lending';
+import readline from 'readline';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -89,7 +89,7 @@ const protocolId = "compound-v3"
   const transactionRequest = await apisdk.buildRouterTransactionRequest(
     routerData
   )
-  console.log(transactionRequest)
+  console.log(JSON.stringify(transactionRequest))
 
   // Step 7: send transaction
   await readlineQuestion(
