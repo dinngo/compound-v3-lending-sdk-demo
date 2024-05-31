@@ -1,31 +1,33 @@
-import * as common from '@protocolink/common';
+import * as common from "@protocolink/common"
 
-export const marketId = "USDbC"
-
-export const zapToken = new common.Token(
+const usdcToken = new common.Token(
   8453,
-  "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
+  "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
   6,
-  "USDbC",
-  "USD Base Coin"
+  "USDC",
+  "USD Coin"
 )
-export const zapAmount = "5"
 
-export const collateralToken = new common.Token(
+const cbEthToken = new common.Token(
+  8453,
+  "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22",
+  18,
+  "cbETH",
+  "Coinbase Wrapped Staked ETH"
+)
+
+const ethToken = new common.Token(
   8453,
   "0x0000000000000000000000000000000000000000",
   18,
   "ETH",
   "Ethereum"
 )
-export const collateralAmount = "0.001"
 
-export const debtToken = new common.Token(
-  8453,
-  "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
-  6,
-  "USDbC",
-  "USD Base Coin"
-)
-
+export const marketId = "ETH"
+export const zapToken = usdcToken
+export const zapAmount = "40"
+export const collateralToken = cbEthToken
+export const collateralAmount = "0.04"
+export const debtToken = ethToken
 export const slippage = 100

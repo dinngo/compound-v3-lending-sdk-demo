@@ -1,4 +1,4 @@
-import * as apisdk from '@protocolink/api';
+import * as apisdk from "@protocolink/api"
 import {
   collateralAmount,
   collateralToken,
@@ -6,9 +6,9 @@ import {
   marketId,
   zapAmount,
   zapToken,
-} from './openPosition.config';
-import * as common from '@protocolink/common';
-import * as lending from '@protocolink/lending';
+} from "./openPosition.config"
+import * as common from "@protocolink/common"
+import * as lending from "@protocolink/lending"
 
 // step 1: Register lending protocol and swapper
 lending.Adapter.registerProtocol(lending.protocols.compoundv3.LendingProtocol)
@@ -38,7 +38,7 @@ const protocolId = "compound-v3"
   })
 
   console.log("---afterPortfolio---", afterPortfolio)
-  console.log("---logics---", logics)
+  console.log("---logics---", JSON.stringify(logics, null, 2))
 
   const routerData: apisdk.RouterData = {
     chainId,
@@ -49,7 +49,9 @@ const protocolId = "compound-v3"
   // step 5: Estimate Router Data
   //   estimate how much funds will be spent (funds) and how many balances will be obtained (balances) from this transaction.
   //   It will also identify any approvals that the user needs to execute (approvals) before the transaction.
-  const estimateResult = await apisdk.estimateRouterData(routerData)
+  const estimateResult = await apisdk.estimateRouterData(routerData, {
+    permit2Type: "approve",
+  })
   const { funds, balances, approvals, permitData, fees } = estimateResult
   console.log("---funds---", funds)
   console.log("---balances---", balances)

@@ -380,7 +380,7 @@
     bignumber.js "^9.0.2"
     ts-essentials "^9.1.2"
 
-"@protocolink/api@^1.0.21", "@protocolink/api@^1.0.24":
+"@protocolink/api@^1.0.19", "@protocolink/api@^1.0.21":
   version "1.0.24"
   resolved "https://registry.yarnpkg.com/@protocolink/api/-/api-1.0.24.tgz#d8d60365c4879e1d8c0608290efdefab13552d70"
   integrity sha512-Skgbdz1Oc+MNu4+OcJhSbYOOzYTRgJR8B9wwUnhS2kqpuoyGUGH8VtoBm1NxlO9r7tHxfKj8z3H/HKgU7vqg/w==
@@ -418,7 +418,7 @@
     ethers "^5.7.2"
     tiny-invariant "^1.3.1"
 
-"@protocolink/lending@^1.1.0":
+"@protocolink/lending@^1.0.16":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@protocolink/lending/-/lending-1.1.0.tgz#0a0dc84fb3c8b116499ba23abc3612b976b46330"
   integrity sha512-vNcgPpVpwCOdpdQ3lzpKqaVIQ4oqp1gxHX5+Gqd/BUGFg++wS9Mme8aldzCUvUpoIAJq5nHp4EFudWojkzxtsA==
