@@ -12,7 +12,7 @@ This is a demo application that showcases the usage of the @protocolink/lending 
 
 ## Dependencies
 
-- @protocolink/api: The Protocolink API SDK for interacting.
-- @protocolink/common: Common utilities for Protocolink packages.
-- @protocolink/lending: The Protocolink Lending SDK, which provides adapters for various lending protocols.
+- [@protocolink/api](https://github.com/dinngo/protocolink-js-sdk): The Protocolink API SDK for interacting.
+- [@protocolink/common](https://github.com/dinngo/protocolink-js-sdk): Common utilities for Protocolink packages.
+- [@protocolink/lending](https://github.com/dinngo/protocolink-js-sdk): The Protocolink Lending SDK, which provides adapters for various lending protocols.
 - readline: A Node.js module for reading input from the terminal.
